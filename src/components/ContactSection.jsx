@@ -1,188 +1,180 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 
 const contactInfo = [
-  {
-    iconClass: "bi bi-envelope",
-    label: "Email",
-    value: "developer@email.com",
-    href: "mailto:developer@email.com",
-    bg: "rgba(0, 240, 255, 0.10)",
-    color: "var(--neon-cyan)",
-  },
-  {
-    iconClass: "bi bi-linkedin",
-    label: "LinkedIn",
-    value: "linkedin.com/in/developer",
-    href: "https://linkedin.com",
-    bg: "rgba(0, 102, 255, 0.10)",
-    color: "var(--neon-blue)",
-  },
-  {
-    iconClass: "bi bi-github",
-    label: "GitHub",
-    value: "github.com/developer",
-    href: "https://github.com",
-    bg: "rgba(112, 0, 255, 0.10)",
-    color: "var(--neon-purple)",
-  },
-  {
-    iconClass: "bi bi-geo-alt",
-    label: "Location",
-    value: "Available Worldwide",
-    href: null,
-    bg: "rgba(255, 255, 255, 0.06)",
-    color: "#fff",
-  },
+  { icon: 'bi-envelope', label: 'Email', value: 'developer@email.com', href: 'mailto:developer@email.com' },
+  { icon: 'bi-linkedin', label: 'LinkedIn', value: 'linkedin.com/in/developer', href: 'https://linkedin.com' },
+  { icon: 'bi-github', label: 'GitHub', value: 'github.com/developer', href: 'https://github.com' },
+  { icon: 'bi-geo-alt', label: 'Location', value: 'Available Worldwide', href: null },
 ];
 
-function ContactSection() {
+const ContactSection = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
   });
+  const [showToast, setShowToast] = useState(false);
 
   const handleChange = (e) => {
-    setFormData((p) => ({ ...p, [e.target.name]: e.target.value }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Message sent successfully!");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+
+    // Simulate submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setShowToast(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setShowToast(false), 5000);
+    }, 1500);
   };
 
   return (
     <section id="contact" className="py-5">
-      <div className="container">
-        {/* Header */}
+      <div className="container py-5">
         <div className="text-center mb-5">
-          <h2 className="fw-bold" style={{ fontSize: "clamp(28px,4vw,46px)" }}>
+          <h2 className="display-4 fw-bold">
             Get In <span className="hero-gradient-text">Touch</span>
           </h2>
-          <p className="text-white-50 mx-auto" style={{ maxWidth: "720px" }}>
-            Have a project in mind or just want to say hello? I'd love to hear from you!
+          <p className="opacity-50 mt-2">
+            Have a project in mind? Let's discuss how we can work together.
           </p>
         </div>
 
-        <div className="row g-4 g-lg-5">
-          {/* LEFT – Contact Info */}
-          <div className="col-lg-6">
-            <div className="mb-4">
-              <h3 className="fw-bold text-white mb-2">Let's Connect</h3>
-              <p className="text-white-50">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be part
-                of your vision.
-              </p>
-            </div>
+        
+        <div className="row g-5 align-items-stretch">
+          
+          <div className="col-lg-5 d-flex flex-column">
+            <h3 className="h4 fw-bold mb-4">Contact Information</h3>
 
-            <div className="d-flex flex-column gap-3">
-              {contactInfo.map((info) => (
-                <div
-                  key={info.label}
-                  className="card-glass d-flex align-items-center p-3"
-                  style={{ height: "60px" }}   // ✅ SAME HEIGHT
-                >
-                  {/* Icon */}
-                  <div
-                    className="icon-box me-3"
-                    style={{
-                      background: info.bg,
-                      color: info.color,
-                    }}
-                  >
-                    <i className={`${info.iconClass}`} />
-                  </div>
+            <div className="row g-3">
+              {contactInfo.map((info, idx) => (
+                <div key={idx} className="col-12">
+                  {/* same padding feel as right side */}
+                  <div className="card-glass p-4 border-0">
+                    <div className="d-flex align-items-center gap-3">
+                      <div
+                        className="icon-box bg-dark text-primary rounded-circle d-flex align-items-center justify-content-center"
+                        style={{ width: '48px', height: '48px', minWidth: '48px' }}
+                      >
+                        <i className={`bi ${info.icon} fs-5`}></i>
+                      </div>
 
-                  {/* Text */}
-                  <div className="info-text">
-                    <small>{info.label}</small>
-                    {info.href ? (
-                      <a href={info.href} target="_blank" rel="noreferrer">
-                        {info.value}
-                      </a>
-                    ) : (
-                      <span>{info.value}</span>
-                    )}
+                      <div className="info-text overflow-hidden">
+                        <small className="d-block opacity-50">{info.label}</small>
+
+                        {info.href ? (
+                          <a
+                            href={info.href}
+                            className="text-light text-decoration-none text-truncate d-block"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {info.value}
+                          </a>
+                        ) : (
+                          <span className="text-light d-block text-truncate">{info.value}</span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* RIGHT – Form */}
-          <div className="col-lg-6">
-            <div
-              className="p-3 p-md-4 rounded-3"
-              style={{
-                background: "rgba(5, 5, 20, 0.5)",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              <h3 className="fw-bold text-white mb-4">Send a Message</h3>
-
+          {/*  Right side: make card full height to match left side */}
+          <div className="col-lg-7">
+            <div className="card-glass p-4 border-0 h-100">
               <form onSubmit={handleSubmit}>
-                <div className="row">
-                  <div className="col-md-6 mb-3">
-                    <label className="text-white-50 small">Name</label>
+                <div className="row g-3">
+                  <div className="col-md-6">
+                    <label className="form-label small opacity-100">First Name</label>
                     <input
-                      className="form-control form-control-dark"
+                      type="text"
                       name="name"
+                      className="form-control form-control-dark"
+                      placeholder="Your Name"
                       value={formData.name}
                       onChange={handleChange}
                       required
                     />
                   </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="text-white-50 small">Email</label>
+
+                  <div className="col-md-6">
+                    <label className="form-label small opacity-100">Email Address</label>
                     <input
-                      className="form-control form-control-dark"
-                      name="email"
                       type="email"
+                      name="email"
+                      className="form-control form-control-dark"
+                      placeholder="name@example.com"
                       value={formData.email}
                       onChange={handleChange}
                       required
                     />
                   </div>
-                </div>
 
-                <div className="mb-3">
-                  <label className="text-white-50 small">Subject</label>
-                  <input
-                    className="form-control form-control-dark"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
+                  <div className="col-12">
+                    <label className="form-label small opacity-100">Subject</label>
+                    <input
+                      type="text"
+                      name="subject"
+                      className="form-control form-control-dark"
+                      placeholder="How can I help?"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
 
-                <div className="mb-4">
-                  <label className="text-white-50 small">Message</label>
-                  <textarea
-                    className="form-control form-control-dark"
-                    rows="4"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
+                  <div className="col-12">
+                    <label className="form-label small opacity-100">Message</label>
+                    <textarea
+                      name="message"
+                      className="form-control form-control-dark"
+                      style={{ minHeight: '150px' }}
+                      placeholder="Your message..."
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                    ></textarea>
+                  </div>
 
-                <button
-                  type="submit"
-                  className="btn btn-primary w-100 py-2 rounded-3"
-                >
-                  <i className="bi bi-send me-2" /> Send Message
-                </button>
+                  <div className="col-12 text-end">
+                    <button type="submit" className="btn btn-primary px-5 py-3" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <span className="spinner-border spinner-border-sm me-2"></span>
+                      ) : (
+                        <i className="bi bi-send me-2"></i>
+                      )}
+                      Send Message
+                    </button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Toast Notification Simulation */}
+      {showToast && (
+        <div className="position-fixed bottom-0 end-0 p-3" style={{ zIndex: 1100 }}>
+          <div className="bg-glass border border-primary p-3 rounded shadow-lg animate-fade-in">
+            <div className="d-flex align-items-center gap-2">
+              <i className="bi bi-check-circle-fill text-primary"></i>
+              <div className="text-light">Message sent successfully!</div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
-}
+};
 
 export default ContactSection;

@@ -1,59 +1,38 @@
-import Button from "./ui/Button";
-import Badge from "./ui/Badge";
+import React from 'react';
 
-function HeroSection() {
-  const handleScroll = (id) => {
-    const el = document.querySelector(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+const HeroSection = () => {
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <section
-      id="home"
-      className="min-vh-100 d-flex align-items-center text-center position-relative"
-      style={{ paddingTop: "120px" }}
-    >
-      <div className="container">
-        <Badge text="Available for opportunities" />
-
-        <h1 className="display-3 fw-bold mt-3 mb-3 text-white">
-          Hi, I'm <span className="hero-gradient-text">Developer</span>
+    <section id="home" className="vh-100 d-flex align-items-center position-relative overflow-hidden">
+      <div className="container position-relative z-1 text-center">
+        <h1 className="display-1 fw-bold mb-3">
+          Hi, I'm <span className="hero-gradient-text glow-text">Developer</span>
         </h1>
-
-        <p className="h3 mb-4">
-          <span className="text-info glow-text">Junior Web Developer</span>{" "}
-          <span className="text-muted">&</span>{" "}
-          <span className="text-primary glow-text" style={{ color: "var(--neon-purple)" }}>UI/UX Designer</span>
-        </p>
-
-        <p className="text-white-50 mx-auto mt-4 fs-5" style={{ maxWidth: "600px" }}>
+        <h2 className="display-6 fw-bold mb-4 opacity-75">
+          Junior Web Developer & UI/UX Designer
+        </h2>
+        <p className="lead mx-auto mb-5 opacity-50" style={{ maxWidth: '600px' }}>
           Crafting beautiful, functional web experiences with modern technologies.
           Passionate about clean code and intuitive design.
         </p>
-
-        <div className="mt-4 mb-4 animate-bounce">
-          <span className="small d-block mb-2" style={{ color: "var(--neon-cyan)", fontWeight: "500" }}>Scroll Down</span>
-          <button
-            className="btn btn-link text-decoration-none"
-            style={{ color: "var(--neon-cyan)" }}
-            onClick={() => handleScroll("#about")}
-          >
-            <i className="bi bi-arrow-down fs-4"></i>
-          </button>
-        </div>
-
         <div className="d-flex justify-content-center gap-3">
-          <Button onClick={() => handleScroll("#projects")}>
-            <i className="bi bi-folder2-open me-2"></i> View Projects
-          </Button>
-
-          <Button variant="outline" href="/cv.pdf">
+          <a href="#projects" className="btn btn-primary btn-lg px-5 py-3" onClick={(e) => scrollToSection(e, 'projects')}>
+            <i className="bi bi-folder me-2"></i> View Projects
+          </a>
+          <a href="/Kasthoori_CV.pdf" className="btn btn-outline-secondary btn-lg px-5 py-3" download>
             <i className="bi bi-download me-2"></i> Download CV
-          </Button>
+          </a>
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default HeroSection;

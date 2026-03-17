@@ -1,97 +1,67 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from 'hooks/useAuth';
 
-const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
-];
-
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isAdmin } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-
-      navLinks.forEach((link) => {
-        const section = document.getElementById(link.href.replace("#", ""));
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          if (rect.top <= 120 && rect.bottom >= 120) {
-            setActiveSection(link.href.replace("#", ""));
-          }
-        }
-      });
+      setIsScrolled(window.scrollY > 20);
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (href) => {
-    setIsOpen(false);
-    const element = document.querySelector(href);
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <nav
-      className={`navbar navbar-expand-lg fixed-top ${isScrolled ? "bg-glass shadow-lg py-3" : "bg-transparent py-4"
-        }`}
-    >
+    <nav className={`navbar navbar-expand-lg fixed-top ${isScrolled ? 'bg-glass' : 'bg-transparent'} py-3`}>
       <div className="container">
-        <a
-          href="#home"
-          className="navbar-brand"
-          onClick={(e) => {
-            e.preventDefault();
-            handleNavClick("#home");
-          }}
-        >
+        <Link className="navbar-brand" to="/" onClick={(e) => scrollToSection(e, 'home')}>
           Kasthoori
-        </a>
-
-        {/* Mobile Toggle */}
-        <button
-          className="navbar-toggler bg-light"
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span className="navbar-toggler-icon"></span>
+        </Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <i className="bi bi-list text-white"></i>
         </button>
-
-        {/* Navigation */}
-        <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}>
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-            {navLinks.map((link) => (
-              <li className="nav-item ms-lg-3" key={link.name}>
-                <a
-                  href={link.href}
-                  className={`nav-link ${activeSection === link.href.replace("#", "")
-                    ? "active"
-                    : ""
-                    }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }}
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav mx-auto">
+            <li className="nav-item">
+              <a className="nav-link" href="/#home" onClick={(e) => scrollToSection(e, 'home')}>Home</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/#about" onClick={(e) => scrollToSection(e, 'about')}>About</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/#skills" onClick={(e) => scrollToSection(e, 'skills')}>Skills</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/#projects" onClick={(e) => scrollToSection(e, 'projects')}>Projects</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/#experience" onClick={(e) => scrollToSection(e, 'experience')}>Experience</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/#contact" onClick={(e) => scrollToSection(e, 'contact')}>Contact</a>
+            </li>
           </ul>
+          <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+            {isAdmin && (
+              <Link to="/admin" className="btn btn-outline-secondary">Admin</Link>
+            )}
+            <a href="#contact" className="btn btn-primary" onClick={(e) => scrollToSection(e, 'contact')}>Let's Talk</a>
+          </div>
         </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
