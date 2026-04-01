@@ -2,22 +2,22 @@ import React from 'react';
 
 const experiences = [
   {
-    company: 'Tech Solutions Inc.',
-    role: 'Junior Web Developer',
-    period: '2023 - Present',
+    company: 'Woocurs Technologies',
+    role: 'Software Developer Intern',
+    period: 'Aug 2025 - Feb 2026',
     description: 'Developing and maintaining responsive web applications using React, Bootstrap, and firebase. Focused on performance optimization and writing clean, scalable code.',
   },
   {
-    company: 'Digital Creative Agency',
-    role: 'UI/UX Design Intern',
-    period: '2022 - 2023',
-    description: 'Collaborated with senior designers to create user-centric prototypes and high-fidelity mockups in Figma. Implemented frontend components using Bootstrap and CSS.',
+    company: 'Bank of Ceylon – Thirunelvely',
+    role: 'Banking Trainee (School Leaver Program)',
+    period: 'Feb 2023 - Aug 2023',
+    description: 'Developed communication, teamwork, and professional workplace behavior',
   },
   {
-    company: 'Freelance Projects',
-    role: 'Full Stack Experience',
+    company: 'Academic Project-Online Furniture Platform',
+    role: 'Final Year Project',
     period: '2021 - Present',
-    description: 'Developed various custom web solutions for clients, focusing on integrating backend services like Firebase for authentication and database management.',
+    description: 'Developed an online furniture platform using HTML, CSS, JavaScript, and PHP.Designed responsive user interfaces for product browsing and shopping experience.Implemented basic features like product listing, categories, and navigation.Applied UI/UX principles to enhance user experience.',
   }
 ];
 

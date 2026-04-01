@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 const contactInfo = [
-  { icon: 'bi-envelope', label: 'Email', value: 'developer@email.com', href: 'mailto:developer@email.com' },
-  { icon: 'bi-linkedin', label: 'LinkedIn', value: 'linkedin.com/in/developer', href: 'https://linkedin.com' },
-  { icon: 'bi-github', label: 'GitHub', value: 'github.com/developer', href: 'https://github.com' },
-  { icon: 'bi-geo-alt', label: 'Location', value: 'Available Worldwide', href: null },
+  { icon: 'bi-envelope', label: 'Email', value: 'kasthoorikaneshalingam@gmail.com', href: 'kasthoorikaneshalingam@gmail.com' },
+  // { icon: 'bi-linkedin', label: 'LinkedIn', value: 'linkedin.com/in/developer', href: 'https://linkedin.com' },
+  { icon: 'bi-github', label: 'GitHub', value: 'github.com/kasthooriGithub', href: 'https://github.com/kasthooriGithub' },
+  
 ];
 
 const ContactSection = () => {

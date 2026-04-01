@@ -16,7 +16,7 @@ const HeroSection = () => {
           Hi, I'm <span className="hero-gradient-text glow-text">Developer</span>
         </h1>
         <h2 className="display-6 fw-bold mb-4 opacity-75">
-          Junior Web Developer & UI/UX Designer
+          Junior Web Developer 
         </h2>
         <p className="lead mx-auto mb-5 opacity-50" style={{ maxWidth: '600px' }}>
           Crafting beautiful, functional web experiences with modern technologies.
