@@ -8,14 +8,14 @@ import MessageList from './admin/MessageList';
 import MessageDetails from './admin/MessageDetails';
 
 const AdminDashboard = () => {
-    const [submissions, setSubmissions] = useState([]);
-    const [projects, setProjects] = useState([]);
-    const [loadingMessages, setLoadingMessages] = useState(false);
-    const [loadingProjects, setLoadingProjects] = useState(false);
+    const [submissions] = useState([]);
+    const [projects] = useState([]);
+    const [loadingMessages] = useState(false);
+    const [loadingProjects] = useState(false);
     const [selectedSubmission, setSelectedSubmission] = useState(null);
     const [editingProject, setEditingProject] = useState(null);
     const [showProjectForm, setShowProjectForm] = useState(false);
-    const { user, signOut } = useAuth();
+    const { signOut } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
